@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Form</title>
+</head>
+<body>
+<center>
+<h1> UPLOAD AND STORE DATA</h1>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    </center>
+    <h2>Data View </h2>
+    {% if data %}
+        <ul>
+            {% for d in data %}
+            <li><h4>{{ d.name }}</h4>
+                    <a href="{{ d.upload.url }}">
+                    <img src="{{ d.upload.url}}" width="250" height="150" alt="{{ d.name }}">
+                    </a>
+                <br>
+                    <a href="{% url 'delete' d.id %}" >Delete</a>
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No documents.</p>
+    {% endif %}
+
+</body>
+</html>
